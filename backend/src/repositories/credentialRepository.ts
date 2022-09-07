@@ -8,3 +8,11 @@ export async function insert(credential:ICredentialData) {
 export async function findByTitle(title:string,userId:number) {
     return await connection.credentials.findFirst({where: {title,userId}});
 }
+
+export async function getMyCredentials(userId:number){
+    return await connection.credentials.findMany({where: {userId}});
+}
+
+export async function getMyCredentialById(id:number){
+    return await connection.credentials.findFirst({where: {id}});
+}

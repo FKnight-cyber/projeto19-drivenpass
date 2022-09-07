@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 export default async function getUserData(req:Request, res:Response, next:NextFunction){
     const token  = req.headers['x-access-token'].toString();
 
-    if(!token) throw checkError(401, "You must send authorization token!");;
+    if(!token) throw checkError(401, "You must send authorization token!");
 
     const session = await findSession(token);
     
@@ -15,9 +15,9 @@ export default async function getUserData(req:Request, res:Response, next:NextFu
     const userInfo = {
         token,
         userId: session.userId
-    }
+    };
 
-    res.locals.userInfo = userInfo
+    res.locals.userInfo = userInfo;
     
     next();
 }
