@@ -33,3 +33,12 @@ export async function getCredentialById(userId:number,id:number) {
 
     return credential;
 }
+
+export async function deleteCredentialById(userId:number,id:number) {
+    const credential = await credentialMethods.getMyCredentialById(id);
+
+    if(!credential) throw checkError(404,"There's no credential registered with this ID");
+    if(credential.userId !== userId) throw checkError(401,"This credential doesn't belong to you!");
+    
+    await credentialMethods.deleteCredentialById(id);
+}

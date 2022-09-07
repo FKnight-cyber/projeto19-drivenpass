@@ -16,3 +16,7 @@ export async function getMyCredentials(userId:number){
 export async function getMyCredentialById(id:number){
     return await connection.credentials.findFirst({where: {id}});
 }
+
+export async function deleteCredentialById(id:number){
+    await connection.credentials.delete({where: {id}});
+}
