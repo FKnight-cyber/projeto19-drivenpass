@@ -12,7 +12,6 @@ export async function createCard(card:ICardData) {
 
     card.password = encrypt(card.password);
     card.securityCode = encrypt(card.securityCode);
-    card.name = cardName(card.name);
     
     await cardMethods.insert(card);
 }

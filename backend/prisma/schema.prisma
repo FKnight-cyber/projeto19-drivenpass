@@ -48,7 +48,7 @@ model cards {
   userId         Int
   number         String
   name           String
-  securityCode   String   @db.VarChar(4)
+  securityCode   String
   expirationDate String   @db.VarChar(5)
   isVirtual      Boolean?
   password       String

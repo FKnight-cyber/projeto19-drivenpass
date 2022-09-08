@@ -21,7 +21,9 @@ export async function signUp(user:IUserData){
 }
 
 export async function signIn(email:string, password:string) {
-    const user:users = await findUserByEmail(email);
+    const user = await findUserByEmail(email);
+
+    if(!user) throw checkError(404,"There's no user registered with this email!");
 
     if(await verifyPassword(password, user.password)) throw checkError(401,"Wrong password!");
 

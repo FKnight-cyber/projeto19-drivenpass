@@ -3,7 +3,7 @@ import { ICardData } from "../types/cardTypes";
 import * as cardServices from "../services/cardService"
 
 export async function createCard(req:Request, res:Response){
-    const { number,
+    let { number,
         name,
         securityCode,
         expirationDate,
@@ -13,6 +13,12 @@ export async function createCard(req:Request, res:Response){
         title }  = req.body;
 
     const { userInfo } = res.locals;
+
+    if(isVirtual === 'true'){
+        isVirtual = true;
+    }else{
+        isVirtual = false;
+    }
 
     const card:ICardData = {
         number,

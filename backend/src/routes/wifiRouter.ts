@@ -9,9 +9,9 @@ import { createWifi,
 
 const wifiRouter = Router();
 
-wifiRouter.post("/categories/wifi/create",wifiValidation,getUserData,createWifi);
-wifiRouter.get("/wifi",getUserData,getWifis);
-wifiRouter.get("/wifi/:id",getUserData,getWifiById);
-wifiRouter.delete("/wifi/delete/:id",getUserData,deleteWifiById);
+wifiRouter.post("/categories/wifis/create",wifiValidation,getUserData,createWifi);
+wifiRouter.get("/wifis",getUserData,getWifis);
+wifiRouter.get("/wifis/:id",getUserData,getWifiById);
+wifiRouter.delete("/wifis/delete/:id",getUserData,deleteWifiById);
 
 export default wifiRouter;

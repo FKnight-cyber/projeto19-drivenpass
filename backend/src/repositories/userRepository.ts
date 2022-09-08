@@ -5,6 +5,5 @@ export async function register(email:string, password:string) {
 };
 
 export async function findUserByEmail(email:string) {
-    const user = await connection.users.findUnique({where: {email}});
-    return user;
+    return await connection.users.findUnique({where: {email}});
 };
