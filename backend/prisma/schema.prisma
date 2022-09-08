@@ -11,7 +11,9 @@ model users {
   id          Int           @id @default(autoincrement())
   email       String        @unique
   password    String
+  cards       cards[]
   credentials credentials[]
+  safenotes   safenotes[]
   sessions    sessions[]
 }
 
@@ -30,4 +32,26 @@ model credentials {
   password String
   title    String
   users    users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model safenotes {
+  id          Int    @id @default(autoincrement())
+  title       String @db.VarChar(50)
+  description String @db.VarChar(1000)
+  userId      Int
+  users       users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model cards {
+  id             Int      @id @default(autoincrement())
+  userId         Int
+  number         String
+  name           String
+  securityCode   String   @db.VarChar(4)
+  expirationDate String   @db.VarChar(5)
+  isVirtual      Boolean?
+  password       String
+  type           String
+  title          String
+  users          users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

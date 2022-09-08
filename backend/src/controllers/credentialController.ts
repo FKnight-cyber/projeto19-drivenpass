@@ -42,7 +42,7 @@ export async function deleteCredentialById(req:Request, res:Response) {
     const { userInfo } = res.locals;
     const id:number = Number(req.params.id);
 
-    await credentialServices.deleteCredentialById(userInfo.id,id);
+    await credentialServices.deleteCredentialById(userInfo.userId,id);
 
     return res.status(200).send("Credential removed!");
 }
