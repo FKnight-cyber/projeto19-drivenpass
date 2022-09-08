@@ -123,11 +123,9 @@ export default function CreateCredential(){
 
 export const Form = styled.form`
     width: 90%;
-    min-height: 30vh;
+    height: 480px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: space-between;
     margin-top: 20px;
 
     h1{
