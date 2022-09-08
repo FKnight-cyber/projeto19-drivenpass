@@ -32,20 +32,22 @@ const Container = styled.div`
                 margin-left: 10px;
                 font-size: 18px;
                 color: #000000;
+                width: 240px;
+                word-wrap: break-word;
             }
         }
 
         .circle{
-            display: ${props => props.number ? "flex" : "none"};
+            display: ${props => props.number !== undefined ? "flex" : "none"};
             justify-content: center;
             align-items: center;
-            background-color: #2e2f89;
+            background-color: ${props => typeof(props.number) === "number" ? "#2e2f89" : "none"};
             border-radius: 50%;
             width: 40px;
             height: 40px;
 
             h4{
-                color: #98ff98;
+                color: ${props => props.number === 0 ? "crimson" : "#98ff98"};
                 font-size: 20px;
             }
         }

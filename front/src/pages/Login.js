@@ -1,27 +1,75 @@
 import lock from "../assets/lock.png";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link,useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import axios from "axios";
+import UserContext from "../contexts/UserContext";
+import Swal from "sweetalert2";
+import Letter from "../components/Loaders/LetterLoader";
 
 export default function Login(){
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
+    const [load,setLoad] = useState(false);
+
+    const { setToken } = useContext(UserContext);
+
+    const navigate = useNavigate();
+
+    function login(event){
+        event.preventDefault();
+        setLoad(true)
+
+        const body = {
+            email,
+            password
+        }
+
+        const promise = axios.post(`${process.env.REACT_APP_BASE_URL}/sign-in`,body);
+
+        promise.then(res=>{
+            localStorage.setItem("authToken",res.data);
+            setToken(localStorage.getItem("authToken"));
+            setLoad(false);
+            navigate("/initialpage");
+        });
+
+        promise.catch(Error=>{
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Login!',
+                text: `${Error.response.data}`,
+                confirmButtonColor: "crimson"
+              }).then((result)=>{
+                if(result.isConfirmed){
+                    setLoad(false);
+                }
+            });
+        });
+    }
 
     return(
         <Container>
             <img src={lock} alt="" srcset="" />
             <h1>DrivenPass</h1>
-            <form action="">
-                <input type="email"
-                placeholder="E-mail"
-                onChange={e => setEmail(e.target.value)}
-                required />
-                <input type="password"
-                placeholder="Password"
-                onChange={e => setPassword(e.target.value)}
-                required />
-                <button type="submit">Login</button>
-            </form>
+            {
+                load ?
+                <Letter />
+                    :
+                <form onSubmit={login}>
+                    <input type="email"
+                    placeholder="E-mail"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    required />
+                    <input type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    required />
+                    <button type="submit">Login</button>
+                </form>
+            }
             <div className="line"></div>
             <Link to="/register" style={{textDecorationColor:"#2e2f89"}}>
                 <h2>First access? create your account!</h2>
@@ -70,6 +118,10 @@ export const Container = styled.div`
 
             font-size: 26px;
             margin-top: 20px;
+
+            &:hover{
+                cursor: pointer;
+            }
         }
     }
 

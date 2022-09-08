@@ -3,10 +3,9 @@ import Record from "../components/Record.js";
 import Header from "../components/Header.js";
 import { IoOpenSharp, IoPencil, IoCard, IoWifi, IoAdd,IoChevronBack } from "react-icons/io5";
 import styled from "styled-components";
-import { Link,useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function SelectCategory(){
-    const navigate = useNavigate();
     return(
         <Container>
             <Header title={"Categories"} />
@@ -14,28 +13,28 @@ export default function SelectCategory(){
                 <Record 
                     icon={<IoOpenSharp size={40} color="#2e2f89" />}
                     name={"Credentials"}
-                    number={''}
+                    number={undefined}
                 />
             </Link>
             <Link to="/categories/notes" style={{textDecoration:"none",width:"100%"}}>
                 <Record 
                     icon={<IoPencil size={40} color="#2e2f89" />}
                     name={"Safe notes"}
-                    number={''}
+                    number={undefined}
                 />
             </Link>
             <Link to="/categories/cards" style={{textDecoration:"none",width:"100%"}}>
                 <Record 
                     icon={<IoCard size={40} color="#2e2f89" />}
                     name={"Cards"}
-                    number={''}
+                    number={undefined}
                 />
             </Link>
             <Link to="/categories/wifipass" style={{textDecoration:"none",width:"100%"}}>
                 <Record 
                     icon={<IoWifi size={40} color="#2e2f89" />}
                     name={"Wi-fi passwords"}
-                    number={''}
+                    number={undefined}
                 />
             </Link>
             <Link to="/initialpage" style={{color: "#000000"}}>
