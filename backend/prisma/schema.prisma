@@ -15,6 +15,7 @@ model users {
   credentials credentials[]
   safenotes   safenotes[]
   sessions    sessions[]
+  wifis       wifis[]
 }
 
 model sessions {
@@ -54,4 +55,13 @@ model cards {
   type           String
   title          String
   users          users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model wifis {
+  id       Int    @id @default(autoincrement())
+  userId   Int
+  name     String
+  password String
+  title    String
+  users    users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
