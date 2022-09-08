@@ -123,10 +123,11 @@ export default function CreateCredential(){
 
 export const Form = styled.form`
     width: 90%;
-    height: 480px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     margin-top: 20px;
+    overflow-y: scroll;
 
     h1{
         color: #2e2f89;
