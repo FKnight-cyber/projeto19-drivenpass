@@ -631,7 +631,9 @@ cd ../../projeto19-drivenpass/backend
 
 check your .env and inform your DATABASE_URL
 
-run npx prisma migrate dev 
+```bash
+  run npx prisma migrate dev 
+```
 
 and prisma will build the postgress database.
 
