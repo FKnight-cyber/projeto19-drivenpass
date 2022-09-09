@@ -366,6 +366,7 @@ POST /categories/notes/create
 
 `title max-length: 50`
 `description max-length: 1000`
+`Can't create safe note with same title`
 
 ####
 
@@ -468,6 +469,123 @@ DELETE notes/delete/:id
 ```
 #
 
+### Create a wifi network record
+
+```https://ryan-drivenpass.herokuapp.com
+POST /categories/wifis/create
+```
+
+#### Request:
+
+| Headers          | Type    | Description                        |
+| :--------------- | :-------| :--------------------------------- |
+| `x-access-token` | `string`| **Required**. authentication token | 
+
+####
+
+| Body           | Type      | Description                        |
+| :------------- | :-------- | :--------------------------------- |
+| `title`        | `string`  | **Required**. record title         |
+| `name`         | `string`  | **Required**. wifi network name    |
+| `password`     | `string`  | **Required**. wifi password        |
+
+
+
+####
+
+</br>
+
+#### Response:
+
+```json
+{
+  "message": "created!"
+}
+```
+#
+
+### View wifi networks
+
+```https://ryan-drivenpass.herokuapp.com
+GET /wifis
+```
+
+#### Request:
+
+| Headers          | Type    | Description                        |
+| :--------------- | :-------| :--------------------------------- |
+| `x-access-token` | `string`| **Required**. authentication token |
+
+#### Response:
+
+```json
+[
+  {
+    "title": "Wifi do Vizinho",
+    "name": "Wifi boa é wifi de graça",
+    "password": "1234"
+  },
+  ...
+]
+```
+#
+
+### View wifi network by id
+
+```https://ryan-drivenpass.herokuapp.com
+GET /wifis/:id
+```
+
+#### Request:
+
+| Headers          | Type    | Description                        |
+| :--------------- | :-------| :--------------------------------- |
+| `x-access-token` | `string`| **Required**. authentication token |
+
+####
+
+| Params  | Type     | Description            |
+| :------ | :------- | :--------------------- |
+| `id`    | `integer`| **Required**. wifi id  |
+
+#### Response:
+
+```json
+  {
+    "title": "Wifi do Vizinho",
+    "name": "Wifi boa é wifi de graça",
+    "password": "1234"
+  }
+```
+#
+
+### Delete wifi record by id
+
+```https://ryan-drivenpass.herokuapp.com/
+DELETE wifis/delete/:id
+```
+
+#### Request:
+
+|    Params    |   Type   | Description             |
+| :----------  | :--------| :---------------------- |
+| `id`         | `integer`| **Required**. wifi Id   | 
+
+####
+
+| Headers          | Type    | Description                        |
+| :--------------- | :-------| :--------------------------------- |
+| `x-access-token` | `string`| **Required**. authentication token |
+
+#### Response:
+
+```json
+  {
+    "message": "Wifi record removed!"
+  }
+```
+#
+
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
@@ -476,6 +594,12 @@ To run this project, you will need to add the following environment variables to
 
 `PORT = number #recommended:5000`
 
+`JWT_SECRET= string ` 
+
+# Front
+
+`REACT_APP_BASE_URL= http://localhost:PORT`
+
 </br>
 
 ## Run Locally
@@ -483,13 +607,14 @@ To run this project, you will need to add the following environment variables to
 Clone the project
 
 ```bash
-  git clone https://github.com/FKnight-cyber/projeto18-valex
+  git clone https://github.com/FKnight-cyber/projeto19-drivenpass
 ```
 
 Go to the project directory
 
 ```bash
-  cd projeto18-valex/
+  cd projeto19-drivenpass/backend
+  cd projeto19-drivenpass/front
 ```
 
 Install dependencies
@@ -520,7 +645,8 @@ Start the server
 
 ## Lessons Learned
 
-In this project I learned a lot about how to structure an API with TypeScript
+In this project i've improved my typescript skills and how to work with layered structure, i've learnt the basics of working with prisma to build
+the database and how to make and use tests through thunder-client.
 
 </br>
 
