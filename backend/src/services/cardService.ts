@@ -2,7 +2,6 @@ import { ICardData } from "../types/cardTypes";
 import * as cardMethods from "../repositories/cardRepository";
 import { checkError } from "../middlewares/errorHandler";
 import { encrypt,decrypt } from "../utils/credentialUtils";
-import { cardName } from "../utils/cardUtils";
 
 export async function createCard(card:ICardData) {
 
@@ -13,7 +12,9 @@ export async function createCard(card:ICardData) {
     card.password = encrypt(card.password);
     card.securityCode = encrypt(card.securityCode);
     
-    await cardMethods.insert(card);
+    await cardMethods.insert(card).catch(Error=>{
+        throw checkError(500,"Failed to store in database");
+    });
 }
 
 export async function getCards(userId:number) {
