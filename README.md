@@ -284,7 +284,7 @@ GET /cards
 ```
 #
 
-### View credential by id
+### View card by id
 
 ```https://ryan-drivenpass.herokuapp.com
 GET /cards/:id
@@ -298,9 +298,9 @@ GET /cards/:id
 
 ####
 
-| Params  | Type     | Description                 |
-| :------ | :------- | :-------------------------- |
-| `id`    | `integer`| **Required**. credential id |
+| Params  | Type     | Description           |
+| :------ | :------- | :-------------------- |
+| `id`    | `integer`| **Required**. card id |
 
 #### Response:
 
@@ -318,7 +318,7 @@ GET /cards/:id
 ```
 #
 
-### Delete credential by id
+### Delete card by id
 
 ```https://ryan-drivenpass.herokuapp.com/
 DELETE cards/delete/:id
@@ -326,9 +326,9 @@ DELETE cards/delete/:id
 
 #### Request:
 
-|    Params    |   Type   | Description                  |
-| :----------  | :--------| :--------------------------- |
-| `id`         | `integer`| **Required**. credential Id  | 
+|    Params    |   Type   | Description            |
+| :----------  | :--------| :--------------------- |
+| `id`         | `integer`| **Required**. card Id  | 
 
 ####
 
@@ -345,10 +345,10 @@ DELETE cards/delete/:id
 ```
 #
 
-### Create a card record
+### Create a safenote record
 
 ```https://ryan-drivenpass.herokuapp.com
-POST /categories/cards/create
+POST /categories/notes/create
 ```
 
 #### Request:
@@ -359,22 +359,13 @@ POST /categories/cards/create
 
 ####
 
-| Body              | Type      | Description                       |
-| :---------------- | :-------- | :-------------------------------- |
-| `number`          | `string`  | **Required**. card number         |
-| `name`            | `string`  | **Required**. card holder name    |
-| `securityCode`    | `string`  | **Required**. card cvc            |
-| `isVirtual`       | `boolean` | **Required**. card is virtual?    |
-| `password`        | `string`  | **Required**. card password       |
-| `expirationDate`  | `string`  | **Required**. card valid date     |
-| `title`           | `string`  | **Required**. record title        |
-| `type`            | `string`  | **Required**. card type           |
+| Body              | Type      | Description                           |
+| :---------------- | :-------- | :------------------------------------ |
+| `title`           | `string`  | **Required**. record title            |
+| `description`     | `string`  | **Required**. safe note description   |
 
-`Number length: 16`
-`securityCode max-length: 4`
-`expirationDate length: 5 format(MM/YY)`
-`Valid types: [debit,credit,credit and debit]`
-`Can't create cards with same title`
+`title max-length: 50`
+`description max-length: 1000`
 
 ####
 
@@ -389,10 +380,10 @@ POST /categories/cards/create
 ```
 #
 
-### View cards
+### View safe notes
 
 ```https://ryan-drivenpass.herokuapp.com
-GET /cards
+GET /notes
 ```
 
 #### Request:
@@ -406,24 +397,22 @@ GET /cards
 ```json
 [
   {
-    "number": "1111222233334444",
-    "name": "Gol D. Roger",
-    "securityCode": "777",
-    "expirationDate": "12/22",
-    "isVirtual": false,
-    "password": "1234",
-    "title": "Cartão do Rei dos Piratas",
-    "type":"debit"
-  },
+    "title": "my safe note",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique lectus id arcu pharetra laoreet.
+    Morbi quis ullamcorper ante, sed vulputate felis. Nulla elit ipsum, molestie eu hendrerit vitae, vestibulum quis odio. 
+    Integer facilisis quis neque vitae tristique. 
+    Aenean venenatis, odio id posuere posuere, nibh libero rhoncus eros, 
+    ac pellentesque mi felis sed justo. Phasellus feugiat orci maximus commodo commodo." 
+   },
   ...
 ]
 ```
 #
 
-### View credential by id
+### View safe note by id
 
 ```https://ryan-drivenpass.herokuapp.com
-GET /cards/:id
+GET /notes/:id
 ```
 
 #### Request:
@@ -436,35 +425,33 @@ GET /cards/:id
 
 | Params  | Type     | Description                 |
 | :------ | :------- | :-------------------------- |
-| `id`    | `integer`| **Required**. credential id |
+| `id`    | `integer`| **Required**. safe note id  |
 
 #### Response:
 
 ```json
   {
-    "number": "1111222233334444",
-    "name": "Gol D. Roger",
-    "securityCode": "777",
-    "expirationDate": "12/22",
-    "isVirtual": false,
-    "password": "1234",
-    "title": "Cartão do Rei dos Piratas",
-    "type":"debit"
-  }
+    "title": "my safe note",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique lectus id arcu pharetra laoreet.
+    Morbi quis ullamcorper ante, sed vulputate felis. Nulla elit ipsum, molestie eu hendrerit vitae, vestibulum quis odio. 
+    Integer facilisis quis neque vitae tristique. 
+    Aenean venenatis, odio id posuere posuere, nibh libero rhoncus eros, 
+    ac pellentesque mi felis sed justo. Phasellus feugiat orci maximus commodo commodo." 
+   },
 ```
 #
 
-### Delete credential by id
+### Delete safe note by id
 
 ```https://ryan-drivenpass.herokuapp.com/
-DELETE cards/delete/:id
+DELETE notes/delete/:id
 ```
 
 #### Request:
 
 |    Params    |   Type   | Description                  |
 | :----------  | :--------| :--------------------------- |
-| `id`         | `integer`| **Required**. credential Id  | 
+| `id`         | `integer`| **Required**. safe note Id   | 
 
 ####
 
@@ -476,7 +463,7 @@ DELETE cards/delete/:id
 
 ```json
   {
-    "message": "Card removed!"
+    "message": "Safe note removed!"
   }
 ```
 #
