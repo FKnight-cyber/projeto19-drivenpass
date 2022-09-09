@@ -6,7 +6,7 @@ A Typescript designed project to manage records, you can store informations abou
   <img  src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f512.svg">
 </p>
 <h1 align="center">
-  Valex
+  DrivenPass
 </h1>
 <div align="center">
 
@@ -62,7 +62,7 @@ POST /sign-up
   "message": "created"
 }
 ```
-`Password length: 4`
+`Password length: 10`
 
 #
 
@@ -120,13 +120,6 @@ POST /categories/credentials/create
 {
   "message": "created!"
 }
-
-{
-  "url": "https://google.com.br",
-  "username": "fulano de tal",
-  "password": "1234",
-  "title": "Site 2"
-}
 ```
 `Can't create credentials with same title`
 
@@ -216,10 +209,10 @@ DELETE credentials/delete/:id
 ```
 #
 
-### Create a credential record
+### Create a card record
 
 ```https://ryan-drivenpass.herokuapp.com
-POST /categories/credentials/create
+POST /categories/cards/create
 ```
 
 #### Request:
@@ -230,12 +223,22 @@ POST /categories/credentials/create
 
 ####
 
-| Body        | Type     | Description                              |
-| :-----------| :------- | :--------------------------------------- |
-| `url`       | `string` | **Required**. url of credential record   |
-| `username`  | `string` | **Required**. name associated to record  |
-| `password`  | `string` | **Required**. credential password        |
-| `title`     | `string` | **Required**. record title               |
+| Body              | Type      | Description                       |
+| :---------------- | :-------- | :-------------------------------- |
+| `number`          | `string`  | **Required**. card number         |
+| `name`            | `string`  | **Required**. card holder name    |
+| `securityCode`    | `string`  | **Required**. card cvc            |
+| `isVirtual`       | `boolean` | **Required**. card is virtual?    |
+| `password`        | `string`  | **Required**. card password       |
+| `expirationDate`  | `string`  | **Required**. card valid date     |
+| `title`           | `string`  | **Required**. record title        |
+| `type`            | `string`  | **Required**. card type           |
+
+`Number length: 16`
+`securityCode max-length: 4`
+`expirationDate length: 5 format(MM/YY)`
+`Valid types: [debit,credit,credit and debit]`
+`Can't create cards with same title`
 
 ####
 
@@ -247,22 +250,13 @@ POST /categories/credentials/create
 {
   "message": "created!"
 }
-
-{
-  "url": "https://google.com.br",
-  "username": "fulano de tal",
-  "password": "1234",
-  "title": "Site 2"
-}
 ```
-`Can't create credentials with same title`
-
 #
 
-### View credentials
+### View cards
 
 ```https://ryan-drivenpass.herokuapp.com
-GET /credentials
+GET /cards
 ```
 
 #### Request:
@@ -276,10 +270,14 @@ GET /credentials
 ```json
 [
   {
-    "url": "https://google.com.br",
-    "username": "fulano de tal",
+    "number": "1111222233334444",
+    "name": "Gol D. Roger",
+    "securityCode": "777",
+    "expirationDate": "12/22",
+    "isVirtual": false,
     "password": "1234",
-    "title": "Site 2"
+    "title": "Cartão do Rei dos Piratas",
+    "type":"debit"
   },
   ...
 ]
@@ -289,7 +287,7 @@ GET /credentials
 ### View credential by id
 
 ```https://ryan-drivenpass.herokuapp.com
-GET /credentials/:id
+GET /cards/:id
 ```
 
 #### Request:
@@ -308,10 +306,14 @@ GET /credentials/:id
 
 ```json
   {
-    "url": "https://google.com.br",
-    "username": "fulano de tal",
+    "number": "1111222233334444",
+    "name": "Gol D. Roger",
+    "securityCode": "777",
+    "expirationDate": "12/22",
+    "isVirtual": false,
     "password": "1234",
-    "title": "Site 2"
+    "title": "Cartão do Rei dos Piratas",
+    "type":"debit"
   }
 ```
 #
@@ -319,7 +321,7 @@ GET /credentials/:id
 ### Delete credential by id
 
 ```https://ryan-drivenpass.herokuapp.com/
-DELETE credentials/delete/:id
+DELETE cards/delete/:id
 ```
 
 #### Request:
@@ -338,7 +340,143 @@ DELETE credentials/delete/:id
 
 ```json
   {
-    "message": "Credential removed!"
+    "message": "Card removed!"
+  }
+```
+#
+
+### Create a card record
+
+```https://ryan-drivenpass.herokuapp.com
+POST /categories/cards/create
+```
+
+#### Request:
+
+| Headers          | Type    | Description                        |
+| :--------------- | :-------| :--------------------------------- |
+| `x-access-token` | `string`| **Required**. authentication token | 
+
+####
+
+| Body              | Type      | Description                       |
+| :---------------- | :-------- | :-------------------------------- |
+| `number`          | `string`  | **Required**. card number         |
+| `name`            | `string`  | **Required**. card holder name    |
+| `securityCode`    | `string`  | **Required**. card cvc            |
+| `isVirtual`       | `boolean` | **Required**. card is virtual?    |
+| `password`        | `string`  | **Required**. card password       |
+| `expirationDate`  | `string`  | **Required**. card valid date     |
+| `title`           | `string`  | **Required**. record title        |
+| `type`            | `string`  | **Required**. card type           |
+
+`Number length: 16`
+`securityCode max-length: 4`
+`expirationDate length: 5 format(MM/YY)`
+`Valid types: [debit,credit,credit and debit]`
+`Can't create cards with same title`
+
+####
+
+</br>
+
+#### Response:
+
+```json
+{
+  "message": "created!"
+}
+```
+#
+
+### View cards
+
+```https://ryan-drivenpass.herokuapp.com
+GET /cards
+```
+
+#### Request:
+
+| Headers          | Type    | Description                        |
+| :--------------- | :-------| :--------------------------------- |
+| `x-access-token` | `string`| **Required**. authentication token |
+
+#### Response:
+
+```json
+[
+  {
+    "number": "1111222233334444",
+    "name": "Gol D. Roger",
+    "securityCode": "777",
+    "expirationDate": "12/22",
+    "isVirtual": false,
+    "password": "1234",
+    "title": "Cartão do Rei dos Piratas",
+    "type":"debit"
+  },
+  ...
+]
+```
+#
+
+### View credential by id
+
+```https://ryan-drivenpass.herokuapp.com
+GET /cards/:id
+```
+
+#### Request:
+
+| Headers          | Type    | Description                        |
+| :--------------- | :-------| :--------------------------------- |
+| `x-access-token` | `string`| **Required**. authentication token |
+
+####
+
+| Params  | Type     | Description                 |
+| :------ | :------- | :-------------------------- |
+| `id`    | `integer`| **Required**. credential id |
+
+#### Response:
+
+```json
+  {
+    "number": "1111222233334444",
+    "name": "Gol D. Roger",
+    "securityCode": "777",
+    "expirationDate": "12/22",
+    "isVirtual": false,
+    "password": "1234",
+    "title": "Cartão do Rei dos Piratas",
+    "type":"debit"
+  }
+```
+#
+
+### Delete credential by id
+
+```https://ryan-drivenpass.herokuapp.com/
+DELETE cards/delete/:id
+```
+
+#### Request:
+
+|    Params    |   Type   | Description                  |
+| :----------  | :--------| :--------------------------- |
+| `id`         | `integer`| **Required**. credential Id  | 
+
+####
+
+| Headers          | Type    | Description                        |
+| :--------------- | :-------| :--------------------------------- |
+| `x-access-token` | `string`| **Required**. authentication token |
+
+#### Response:
+
+```json
+  {
+    "message": "Card removed!"
   }
 ```
 #
@@ -409,7 +547,5 @@ In this project I learned a lot about how to structure an API with TypeScript
 
 -   Ryan Nicholas is a student at Driven Education and is putting effort into it to become a Dev.
 <br/>
-
-`Valid types: [groceries, restaurant, transport, education, health]`
 
 #
