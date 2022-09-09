@@ -625,20 +625,20 @@ Install dependencies
 
 Create database
 
-```bash
-  cd src/db/dbConfig
-```
-```bash
-  bash ./create-database
-```
-```bash
-  cd ../../..
-```
+The application is currently deployed on Heroku, but if you want to run it locally...
+
+cd ../../projeto19-drivenpass/backend
+
+check your .env and inform your DATABASE_URL
+
+run npx prisma migrate dev 
+
+and prisma will build the postgress database.
 
 Start the server
 
 ```bash
-  npm run start
+  npm run dev
 ```
 
 </br>
